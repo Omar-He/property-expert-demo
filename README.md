@@ -7,8 +7,14 @@ npm i
 npm run dev
 ```
 
-To run the test use the following command:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+To run the tests use the following command:
 
 ```bash
 npm run test
 ```
+
+## Live Demo
+
+https://wizard-demo.netlify.app/
