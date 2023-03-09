@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Field, ErrorMessage, useFormikContext } from "formik";
+import { Field, ErrorMessage, useFormikContext, FieldProps } from "formik";
 import { FormValues } from "@/types/form";
 import { fetchList } from "../../utils/requests";
-import MultiSelect from "../MultiSelect/MultiSelect";
+import MultiSelect from "../FormComponents/MultiSelect";
 import { optimizeOptions } from "../../utils/optimizeOptions";
+import Checkbox from "../FormComponents/Checkbox";
+import Textbox from "../FormComponents/Textbox";
+import Numberbox from "../FormComponents/Numberbox";
 
 interface PostType {
   id: number;
   title: string;
 }
+
 const SubPage2 = () => {
   const formik = useFormikContext<FormValues>();
   const { item } = formik.values;
@@ -24,31 +28,17 @@ const SubPage2 = () => {
       const data = await fetchList("posts");
       setPosts(data);
     };
-
     fetchPostsData();
   }, []);
 
   return (
     <>
-      <div className="mb-4">
-        <label
-          htmlFor="item.item2Checkbox"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Item 2 Checkbox
-        </label>
-        <Field
-          id="item.item2Checkbox"
-          type="checkbox"
-          name="item.item2Checkbox"
-          className="mr-2"
-        />
-        <ErrorMessage
-          name="item.item2Checkbox"
-          className="text-red-500"
-          component="div"
-        />
-      </div>
+      <Checkbox
+        id="item.item2Checkbox"
+        label="Item 2 Checkbox"
+        name="item.item2Checkbox"
+        className="mb-4"
+      />
 
       <div className="mb-4">
         <label
@@ -68,46 +58,20 @@ const SubPage2 = () => {
         />
       </div>
 
-      <div className="mb-4">
-        <label
-          htmlFor="item.item2Textbox"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Item 2 Textbox
-        </label>
-        <Field
-          id="item.item2Textbox"
-          type="text"
-          name="item.item2Textbox"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          value={item?.item2Textbox || ""}
-        />
-        <ErrorMessage
-          name="item.item2Textbox"
-          className="text-red-500"
-          component="div"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="item.item2Numberbox"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Item 2 Numberbox
-        </label>
-        <Field
-          id="item.item2Numberbox"
-          type="number"
-          name="item.item2Numberbox"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          value={item?.item2Numberbox || ""}
-        />
-        <ErrorMessage
-          name="item.item2Numberbox"
-          className="text-red-500"
-          component="div"
-        />
-      </div>
+      <Textbox
+        id="item.item2Textbox"
+        label="Item 2 Textbox"
+        name="item.item2Textbox"
+        type="text"
+        value={item?.item2Textbox || ""}
+      />
+
+      <Numberbox
+        id="item.item2Numberbox"
+        label="Item 2 Numberbox"
+        name="item.item2Numberbox"
+        value={item?.item2Numberbox || ""}
+      />
     </>
   );
 };

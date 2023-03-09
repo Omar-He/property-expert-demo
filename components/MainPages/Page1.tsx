@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
-import { Category } from "@/types/form";
+import { Category, FormValues } from "@/types/form";
 import { fetchList } from "../../utils/requests";
+import Textbox from "../FormComponents/Textbox";
+import Select from "../FormComponents/Select";
 
 interface Page1Props {
   setSelectedCategory: (category: string) => void;
@@ -9,7 +11,7 @@ interface Page1Props {
 
 function Page1({ setSelectedCategory }: Page1Props) {
   const [categories, setCategories] = useState<Category[]>([]);
-  const formik = useFormikContext();
+  const formik = useFormikContext<FormValues>();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -30,46 +32,29 @@ function Page1({ setSelectedCategory }: Page1Props) {
 
   return (
     <>
-      <div className="mb-4">
-        <label
-          htmlFor="category"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Category
-        </label>
-        <Field
-          id="category"
-          as="select"
-          data-testid="select"
-          name="category"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          onChange={handleCategoryChange}
-        >
-          <option value="">--Please select a category--</option>
-          {categories.map((category) => (
-            <option value={category.id} key={category.id}>
-              {category.id}
-            </option>
-          ))}
-        </Field>
-        <ErrorMessage
-          name="category"
-          className="text-red-500"
-          component="div"
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="input" className="block text-gray-700 font-bold mb-2">
-          Input
-        </label>
-        <Field
-          id="input"
-          type="text"
-          name="input"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-        <ErrorMessage name="input" className="text-red-500" component="div" />
-      </div>
+      <Select
+        id="category"
+        label="Category"
+        name="category"
+        onChange={handleCategoryChange}
+        className="mb-4"
+      >
+        <option value="">--Please select a category--</option>
+        {categories.map((category) => (
+          <option value={category.id} key={category.id}>
+            {category.id}
+          </option>
+        ))}
+      </Select>
+
+      <Textbox
+        id="input"
+        label="Input"
+        name="input"
+        type="text"
+        className="mb-4"
+        value={formik.values?.input || ""}
+      />
     </>
   );
 }
