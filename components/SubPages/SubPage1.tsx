@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import { Field, ErrorMessage } from "formik";
 import { useFormikContext } from "formik";
 import { FormValues } from "@/types/form";
+import Checkbox from "../FormComponents/Checkbox";
+import Textbox from "../FormComponents/Textbox";
+import Numberbox from "../FormComponents/Numberbox";
 
 const SubPage1 = () => {
   const formik = useFormikContext<FormValues>();
@@ -13,65 +15,27 @@ const SubPage1 = () => {
 
   return (
     <>
-      <div className="mb-4">
-        <label
-          htmlFor="item.item1Checkbox"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Item 1 Checkbox
-        </label>
-        <Field
-          id="item.item1Checkbox"
-          type="checkbox"
-          name="item.item1Checkbox"
-          className="mr-2"
-        />
-        <ErrorMessage
-          name="item.item1Checkbox"
-          className="text-red-500"
-          component="div"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="item.item1Textbox"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Item 1 Textbox
-        </label>
-        <Field
-          id="item.item1Textbox"
-          type="text"
-          name="item.item1Textbox"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          value={item?.item1Textbox || ""}
-        />
-        <ErrorMessage
-          name="item.item1Textbox"
-          className="text-red-500"
-          component="div"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="item.item1Numberbox"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          Item 1 Numberbox
-        </label>
-        <Field
-          id="item.item1Numberbox"
-          type="number"
-          name="item.item1Numberbox"
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          value={item?.item1Numberbox || ""}
-        />
-        <ErrorMessage
-          name="item.item1Numberbox"
-          className="text-red-500"
-          component="div"
-        />
-      </div>
+      <Checkbox
+        id="item.item1Checkbox"
+        label="Item 1 Checkbox"
+        name="item.item1Checkbox"
+        className="mb-4"
+      />
+      <Textbox
+        id="item.item1Textbox"
+        label="Item 1 Textbox"
+        name="item.item1Textbox"
+        type="text"
+        className="mb-4"
+        value={item?.item1Textbox || ""}
+      />
+      <Numberbox
+        id="item.item1Numberbox"
+        label="Item 1 Numberbox"
+        name="item.item1Numberbox"
+        className="mb-4"
+        value={item?.item1Numberbox || ""}
+      />
     </>
   );
 };
